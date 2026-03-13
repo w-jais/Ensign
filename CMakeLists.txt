@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16...3.30)
+message(CMAKE_MAJOR_VERSION)
 project(Ensign 
   VERSION 1.0.1
   DESCRIPTION "Framework for dynamical low-rank simulations"
