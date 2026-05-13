@@ -63,7 +63,20 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gfortran cmake build-essential libfftw3-dev
-    
+    # MacOS deps
+    - name: Install dependencies (macOS)
+      if: matrix.os == 'macos-latest'
+      run: brew install cmake fftw gcc
+      
+    - name: Show environment
+      run: |
+        uname -a
+        pwd
+        ls -la
+        which ${{ matrix.c_compiler }} || true
+        which ${{ matrix.cpp_compiler }} || true
+        which ${{ matrix.fortran_compiler }} || true
+        
     # Fedora deps
     - name: Install dependencies (Fedora)
       if: matrix.container != null
@@ -81,20 +94,6 @@ jobs:
       run: |
            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.enable_asan == 'ON' && 'Debug' || 'Release' }} -DENABLE_ASAN=${{ matrix.enable_asan }}
     
-    # MacOS deps
-    - name: Install dependencies (macOS)
-      if: matrix.os == 'macos-latest'
-      run: brew install cmake fftw gcc
-      
-    - name: Show environment
-      run: |
-        uname -a
-        pwd
-        ls -la
-        which ${{ matrix.c_compiler }} || true
-        which ${{ matrix.cpp_compiler }} || true
-        which ${{ matrix.fortran_compiler }} || true      
-          
     # Build
     - name: Build
       run: cmake --build build --parallel
