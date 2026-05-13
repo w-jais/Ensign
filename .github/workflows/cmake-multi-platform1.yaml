@@ -42,8 +42,8 @@ jobs:
           # macOS
           - os: macos-latest
             container: null
-            c_compiler: gcc-15
-            cpp_compiler: g++-15
+            c_compiler: clang
+            cpp_compiler: clang++
             fortran_compiler: gfortran-15
             enable_asan: OFF
           
@@ -68,13 +68,7 @@ jobs:
     - name: Install dependencies (macOS)
       if: matrix.os == 'macos-latest'
       run: brew install cmake 
-      
-    - name: Show environment
-      run: |
-        ${{ matrix.c_compiler }} --version || true
-        ${{ matrix.cpp_compiler }} --version || true
-        ${{ matrix.fortran_compiler }} --version || true
-        
+    
     # Fedora deps
     - name: Install dependencies (Fedora)
       if: matrix.container != null
