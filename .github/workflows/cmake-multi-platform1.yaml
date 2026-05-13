@@ -67,7 +67,7 @@ jobs:
     # MacOS deps
     - name: Install dependencies (macOS)
       if: matrix.os == 'macos-latest'
-      run: brew install cmake fftw gcc
+      run: brew install cmake 
       
     - name: Show environment
       run: |
