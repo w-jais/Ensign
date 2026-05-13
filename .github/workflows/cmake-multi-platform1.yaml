@@ -42,9 +42,9 @@ jobs:
           # macOS
           - os: macos-latest
             container: null
-            c_compiler: gcc-14
-            cpp_compiler: c++-14
-            fortran_compiler: gfortran-14
+            c_compiler: gcc
+            cpp_compiler: c++
+            fortran_compiler: gfortran
             enable_asan: OFF
           
     steps:
@@ -63,6 +63,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gfortran cmake build-essential libfftw3-dev
+    
     # MacOS deps
     - name: Install dependencies (macOS)
       if: matrix.os == 'macos-latest'
