@@ -105,8 +105,8 @@ jobs:
     
     # Build
     - name: Build
-      run: cmake --build build --parallel
-    
+      run: cmake --build build --parallel --verbose
+      
     # Test
     - name: Test
       working-directory: build
