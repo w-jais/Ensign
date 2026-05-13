@@ -81,11 +81,19 @@ jobs:
         CC: ${{ matrix.c_compiler }}
         CXX: ${{ matrix.cpp_compiler }}
         FC: ${{ matrix.fortran_compiler }}
-        LDFLAGS: -L$(brew --prefix libomp)/lib
-        CPPFLAGS: -I$(brew --prefix libomp)/include
+        # LDFLAGS: -L$(brew --prefix libomp)/lib
+        # CPPFLAGS: -I$(brew --prefix libomp)/include
       run: |
-           cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.enable_asan == 'ON' && 'Debug' || 'Release' }} \
-           -DENABLE_ASAN=${{ matrix.enable_asan }} -DHDF5_USE_STATIC_LIBRARIES=ON
+        if [ "${{ matrix.os }}" = "macos-latest" ]; then
+          export OpenMP_ROOT=$(brew --prefix libomp)
+          export CPPFLAGS="-I$OpenMP_ROOT/include"
+          export LDFLAGS="-L$OpenMP_ROOT/lib"
+          export CFLAGS="-Xpreprocessor -fopenmp $CPPFLAGS"
+          export CXXFLAGS="-Xpreprocessor -fopenmp $CPPFLAGS"
+        fi
+      
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.enable_asan == 'ON' && 'Debug' || 'Release' }} \
+          -DENABLE_ASAN=${{ matrix.enable_asan }} -DHDF5_USE_STATIC_LIBRARIES=ON
     
     # Build
     - name: Build
