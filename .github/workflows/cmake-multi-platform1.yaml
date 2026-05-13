@@ -42,8 +42,8 @@ jobs:
           # macOS
           - os: macos-latest
             container: null
-            c_compiler: clang
-            cpp_compiler: clang++
+            c_compiler: gcc-15
+            cpp_compiler: g++-15
             fortran_compiler: gfortran-15
             enable_asan: OFF
           
