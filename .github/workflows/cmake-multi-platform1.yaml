@@ -99,8 +99,15 @@ jobs:
     
     # Build
     - name: Build
-      run: cmake --build build --verbose -- -j1
-      
+      run: cmake --build build --verbose -- -j1 2>&1 | tee build.log
+
+    - name: Upload build log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log
+        path: build.log
+    
     # Test
     - name: Test
       working-directory: build
