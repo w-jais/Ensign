@@ -51,11 +51,11 @@ jobs:
     - uses: actions/checkout@v4
     
     # - uses: fortran-lang/setup-fortran@v1
-    #  with:
+    #   with:
     #      compiler: ${{ matrix.fortran_compiler }}
-    - name: Set build dir
-      id: strings
-      run: echo "build-output-dir=${{ github.workspace }}" >> $GITHUB_OUTPUT
+    # - name: Set build dir
+    #  id: strings
+    #  run: echo "build-output-dir=${{ github.workspace }}" >> $GITHUB_OUTPUT
     
     # Ubuntu deps
     - name: Install dependencies (Ubuntu)
@@ -67,16 +67,15 @@ jobs:
     # MacOS deps
     - name: Install dependencies (macOS)
       if: matrix.os == 'macos-latest'
-      run: brew install cmake 
+      run: |
+        brew install cmake gcc 
     
     # Fedora deps
     - name: Install dependencies (Fedora)
       if: matrix.container != null
       run: |
-        dnf update -y
         dnf install -y gcc gcc-c++ gcc-gfortran cmake make git fftw-devel pkgconf-pkg-config libasan libubsan
         
-    
     - name: Configure CMake
       env:
         CC: ${{ matrix.c_compiler }}
