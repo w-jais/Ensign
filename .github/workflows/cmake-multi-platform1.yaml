@@ -71,19 +71,8 @@ jobs:
       
     - name: Show environment
       run: |
-        uname -a
-        pwd
-        ls -la
-        echo "C compiler:"
-        which ${{ matrix.c_compiler }} || true
         ${{ matrix.c_compiler }} --version || true
-
-        echo "C++ compiler:"
-        which ${{ matrix.cpp_compiler }} || true
         ${{ matrix.cpp_compiler }} --version || true
-
-        echo "Fortran compiler:"
-        which ${{ matrix.fortran_compiler }} || true
         ${{ matrix.fortran_compiler }} --version || true
         
     # Fedora deps
