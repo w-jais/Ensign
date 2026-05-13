@@ -241,6 +241,13 @@ else()
   message("OpenBLAS is used by default. MKL support is available by setting MKL_ENABLED to ON (set MKL_INCLUDEDIR and MKL_LIBDIR environment variables appropriately).")
   find_package(OpenBLAS QUIET)
   if(NOT openblas_FOUND)
+
+    if(APPLE)
+      set(OPENMP OFF)
+    else()
+      set(OPENMP ON)
+    endif()
+  
     ExternalProject_Add(openblas
       GIT_REPOSITORY "https://github.com/OpenMathLib/OpenBLAS.git"
       GIT_TAG "v0.3.29"
