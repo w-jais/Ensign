@@ -45,7 +45,7 @@ jobs:
             container: null
             c_compiler: clang
             cpp_compiler: clang++
-            fortran_compiler: gfortran-14
+            fortran_compiler: gfortran-15
             enable_asan: OFF
           
     steps:
@@ -68,6 +68,7 @@ jobs:
     - name: Install dependencies (Fedora)
       if: matrix.container != null
       run: |
+        dnf -y update
         dnf install -y gcc gcc-c++ gcc-gfortran cmake make git fftw-devel pkgconf-pkg-config libasan libubsan
         
     - name: Configure CMake
