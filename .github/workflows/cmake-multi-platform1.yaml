@@ -43,9 +43,9 @@ jobs:
           # macOS
           - os: macos-latest
             container: null
-            c_compiler: gcc-15
-            cpp_compiler: g++-15
-            fortran_compiler: gfortran-15
+            c_compiler: clang
+            cpp_compiler: clang++
+            fortran_compiler: gfortran
             enable_asan: OFF
           
     steps:
@@ -81,7 +81,11 @@ jobs:
         OMP=$(brew --prefix libomp)
 
         cmake -S . -B build \
-        -DCMAKE_BUILD_TYPE=${{ matrix.enable_asan == 'ON' && 'Debug' || 'Release' }} \
+        -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
+        -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
+        -DCMAKE_Fortran_COMPILER=${{ matrix.fortran_compiler }}
+        -DCMAKE_BUILD_TYPE=Release
+        # -DCMAKE_BUILD_TYPE=${{ matrix.enable_asan == 'ON' && 'Debug' || 'Release' }} \
         -DENABLE_ASAN=${{ matrix.enable_asan }} \
         -DOPENMP=OFF
 
