@@ -211,19 +211,11 @@ if(NOT fftw3_FOUND)
   ExternalProject_Get_Property(fftw BINARY_DIR)
   set(fftw3_HDR_DIR ${SOURCE_DIR}/api)
   if(OPENMP AND EXISTS "${BINARY_DIR}/libfftw3_omp.a")
-    set(fftw3_LIBRARIES
-        "${BINARY_DIR}/libfftw3.a"
-        "${BINARY_DIR}/libfftw3_omp.a")
+  if(${OPENMP})
+   set(fftw3_LIBRARIES "${BINARY_DIR}/libfftw3.a" "${BINARY_DIR}/libfftw3_omp.a")
   else()
-    set(fftw3_LIBRARIES
-        "${BINARY_DIR}/libfftw3.a")
+   set(fftw3_LIBRARIES "${BINARY_DIR}/libfftw3.a")
   endif()
-  
-  # if(${OPENMP})
-  #  set(fftw3_LIBRARIES "${BINARY_DIR}/libfftw3.a" "${BINARY_DIR}/libfftw3_omp.a")
-  # else()
-  #  set(fftw3_LIBRARIES "${BINARY_DIR}/libfftw3.a")
-  # endif()
 endif()
 
 
