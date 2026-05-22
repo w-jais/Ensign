@@ -96,7 +96,7 @@ jobs:
 
     # Build
     - name: Build
-      run: cmake --build build --verbose -- -j1
+      run: cmake --build build --parallel
     
     # Test
     - name: Test
