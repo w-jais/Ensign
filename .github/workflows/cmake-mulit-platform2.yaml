@@ -94,10 +94,6 @@ jobs:
         -DENABLE_ASAN=${{ matrix.enable_asan }}
         fi
 
-          # cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.enable_asan == 'ON' && 'Debug' || 'Release' }} \
-          # -DENABLE_ASAN=${{ matrix.enable_asan }} -DHDF5_USE_STATIC_LIBRARIES=ON \
-          # $EXTRA
-    
     # Build
     - name: Build
       run: cmake --build build --verbose -- -j1
